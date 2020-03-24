@@ -24,11 +24,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="#" onclick="fillTablePatients()"><i class="far fa-id-card fa-3x"></i><br>Liste des patients</a>
-            <a class="nav-item nav-link" href="#" onclick="fillTableEtablissements()"><i class="far fa-hospital fa-3x"></i><br>Liste des établissements</a>
-            <a class="nav-item nav-link" href="#" onclick="fillTableHospitalisations()"><i class="fas fa-heartbeat fa-3x"></i><br>Liste des hospitalisations</a>
-            <a class="nav-item nav-link" href="#" onclick="fillSelectHosParPatient()"><i class="fas fa-ambulance fa-3x"></i><br>Hospitalisations par patient</a>
-            <a class="nav-item nav-link" href="#" tabindex="-1" onclick="fillSelectHosParEtab()"><i class="fas fa-stethoscope fa-3x"></i><br>Hospitalisations par établissement</a>  
+            <a class="nav-item nav-link" href="#" id="nav-listePatients"><i class="far fa-id-card fa-3x"></i><br>Liste des patients</a>
+            <a class="nav-item nav-link" href="#" id="nav-etablissements"><i class="far fa-hospital fa-3x"></i><br>Liste des établissements</a>
+            <a class="nav-item nav-link" href="#" id="nav-hospitalisations"><i class="fas fa-heartbeat fa-3x"></i><br>Liste des hospitalisations</a>
+            <a class="nav-item nav-link" href="#" id="nav-patients"><i class="fas fa-ambulance fa-3x"></i><br>Hospitalisations par patient</a>
+            <a class="nav-item nav-link" href="#" tabindex="-1" id="nav-etab"><i class="fas fa-stethoscope fa-3x"></i><br>Hospitalisations par établissement</a>  
         </div>
         </div>
       </nav>
@@ -74,11 +74,3 @@
     <script src="/js/hospitalisations.js"></script>
 </body>
 </html>
-
-
-
-<!--
-Toutes les informations (les listes, SELECT) doivent être affichées à l’intérieur des DIV qui seront 
-positionnés et rendus visibles lors de l’affichage. 
-
-En haut de chaque liste doit y avoir un icône pour cacher le DIV qui contient la liste. -->

@@ -229,6 +229,11 @@ const titre2 = document.getElementById('titre2');
 const selectHosParPatient = document.createElement('select');
 const labelDossiersPatients = document.createElement('p');
 const wholeTable = document.getElementById('tablePatiens');
+const navPatients = document.getElementById('nav-patients');
+const navEtabs = document.getElementById('nav-etablissements');
+const navHospitalisations = document.getElementById('nav-hospitalisations');
+const navListePatients = document.getElementById('nav-listePatients');
+const navHosEtabs = document.getElementById('nav-etab');
 
 const hideSelects = () => {
   select.style.display = 'none';
@@ -241,17 +246,17 @@ const hideSelects = () => {
 
 
 const styleTable = (tableHead, tableBody) => {
-   afficheInfos.style.color = 'teal';
-   afficheInfos.style.textShadow = '1px 1px #000';
-   afficheInfos.style.fontSize = '30px';
-   tableHead.style.display = 'table-header-group';
-   tableHead.style.backgroundColor = 'teal';
-   tableHead.style.color = '#fff';
-   tableBody.style.display = 'table-row-group';
-   closeIcon.style.display = 'block';
-   closeIcon.style.margin = 'auto auto auto 220px';
-   closeIcon.style.width = '2%';
-   
+  afficheInfos.style.color = 'teal';
+  afficheInfos.style.textShadow = '1px 1px #000';
+  afficheInfos.style.fontSize = '30px';
+  tableHead.style.display = 'table-header-group';
+  tableHead.style.backgroundColor = 'teal';
+  tableHead.style.color = '#fff';
+  tableBody.style.display = 'table-row-group';
+  closeIcon.style.display = 'block';
+  closeIcon.style.margin = 'auto auto auto 220px';
+  closeIcon.style.width = '2%';
+
 }
 
 const closeTable = () => {
@@ -267,7 +272,7 @@ const fillTableHeader = (tableHead, titre1, titre2, titre3, titre4, titre5) => {
                  <th scope="col">${titre4}</th>
                  <th scope="col">${titre5}</th> <tr>
                   `;
- tableHead.innerHTML = outputHeader;
+  tableHead.innerHTML = outputHeader;
 }
 
 const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, message) => {
@@ -276,11 +281,11 @@ const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, 
   for (let i = 0; i < tableName.length; i++) {
     outputTable += `
     
-                    <td> ${tableName[i] [prop1]} </td>
-                    <td> ${tableName[i] [prop2]} </td>
-                    <td> ${tableName[i] [prop3]} </td>
-                    <td> ${tableName[i] [prop4]} </td>
-                    <td> ${tableName[i] [prop5]} </td> <tr>
+                    <td> ${tableName[i][prop1]} </td>
+                    <td> ${tableName[i][prop2]} </td>
+                    <td> ${tableName[i][prop3]} </td>
+                    <td> ${tableName[i][prop4]} </td>
+                    <td> ${tableName[i][prop5]} </td> <tr>
                     `;
     compte++;
     tableBody.innerHTML = outputTable;
@@ -288,40 +293,40 @@ const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, 
   }
 }
 const fillSelectHosPatient = (elem, tableau, prop, prop1, prop2) => {
-  
+
   let output = '<option>Choisir...</option>';
-   
+
   for (let i = 0; tabSize = tableau.length, i < tabSize; i++) {
-    
+
     output += ` 
-              <option>${tableau[i] [prop]} (${tableau[i] [prop1]} ${tableau[i] [prop2]})</option>
+              <option>${tableau[i][prop]} (${tableau[i][prop1]} ${tableau[i][prop2]})</option>
               `;
-    
+
   }
-   
-   elem.innerHTML = output;
-   afficheInfos.style.color = 'teal';
-   afficheInfos.style.textShadow = '1px 1px #000';
-   afficheInfos.style.fontSize = '30px';
-   afficheInfos.innerHTML = ' Sélectionner un patient pour consulter ses hospitalisations '; 
+
+  elem.innerHTML = output;
+  afficheInfos.style.color = 'teal';
+  afficheInfos.style.textShadow = '1px 1px #000';
+  afficheInfos.style.fontSize = '30px';
+  afficheInfos.innerHTML = ' Sélectionner un patient pour consulter ses hospitalisations ';
 }
 
 const fillSelectHosEtab = (elem, tableau, prop1, prop2) => {
-  
+
   let output = '<option>Choisir...</option>';
-   
+
   for (let i = 0; tabSize = tableau.length, i < tabSize; i++) {
     output += ` 
-              <option>(${tableau[i] [prop1]} ${tableau[i] [prop2]})</option>
+              <option>(${tableau[i][prop1]} ${tableau[i][prop2]})</option>
               `;
-    
+
   }
-   
-   elem.innerHTML = output;
-   afficheInfos.style.color = 'teal';
-   afficheInfos.style.textShadow = '1px 1px #000';
-   afficheInfos.style.fontSize = '30px';
-   afficheInfos.innerHTML = "Sélectionner l'établissement";
+
+  elem.innerHTML = output;
+  afficheInfos.style.color = 'teal';
+  afficheInfos.style.textShadow = '1px 1px #000';
+  afficheInfos.style.fontSize = '30px';
+  afficheInfos.innerHTML = "Sélectionner l'établissement";
 }
 const styleSelect = (elem, selectWidth, selectDisplayType, titreDisplayType, tableHead, tableBody, tableDisplayType, headDisplayType, IconDisplayType, elemTitle, selectLabel, marginTitle, selectMargin, selectBorder) => {
   elem.style.display = selectDisplayType;
@@ -347,60 +352,52 @@ const fillTableFromSelect = (tableHead, tableBody, elemSelect, elemTitre, tablea
       console.log(tableau[i][value]);
       fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
       outputTable += `
-                    <td> ${tableau[i] [tabValue1]} </td>
-                    <td> ${tableau[i] [tabValue2]} </td>
-                    <td> ${tableau[i] [tabValue3]} </td>
-                    <td> ${tableau[i] [tabValue4]} </td>
-                    <td> ${tableau[i] [tabValue5]} </td><tr>
+                    <td> ${tableau[i][tabValue1]} </td>
+                    <td> ${tableau[i][tabValue2]} </td>
+                    <td> ${tableau[i][tabValue3]} </td>
+                    <td> ${tableau[i][tabValue4]} </td>
+                    <td> ${tableau[i][tabValue5]} </td><tr>
                     
                     `;
-                    
-      
-      
       elemSelect.style.display = 'none';
       elemTitre.style.display = 'none';
+
       compte++;
     }
-    
-  }
-  
-  afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;  
-  tableBody.innerHTML = outputTable;
-  styleTable(tableHead, tableBody);
 
+  }
+  styleTable(tableHead, tableBody);
+  tableBody.innerHTML = outputTable;
+  afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;
 }
 
 const fillTableEtabFromSelect = (tableHead, tableBody, elemSelect, tableau, value, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5, tabValue1, tabValue2, tabValue3, tabValue4, tabValue5, message) => {
   let outputTable = ' ';
   let compte = 0;
   let choix = elemSelect.selectedIndex;
-  let choixText = elemSelect.options[choix].text.substring(1,5);
+  let choixText = elemSelect.options[choix].text.substring(1, 5);
   console.log(choixText);
   for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
-     
+
     if (tableau[i][value] == choixText) {
       console.log(tableau[i][value]);
       fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
       outputTable += `
-                    <td> ${tableau[i] [tabValue1]} </td>
-                    <td> ${tableau[i] [tabValue2]} </td>
-                    <td> ${tableau[i] [tabValue3]} </td>
-                    <td> ${tableau[i] [tabValue4]} </td>
-                    <td> ${tableau[i] [tabValue5]} </td><tr>
+                    <td> ${tableau[i][tabValue1]} </td>
+                    <td> ${tableau[i][tabValue2]} </td>
+                    <td> ${tableau[i][tabValue3]} </td>
+                    <td> ${tableau[i][tabValue4]} </td>
+                    <td> ${tableau[i][tabValue5]} </td><tr>
                     
                     `;
-                    
-      
-      
-      
-      
+
       compte++;
     }
-    
+
   }
   elemSelect.style.display = 'none';
   styleTable(tableHead, tableBody);
-  afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;  
+  afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;
   tableBody.innerHTML = outputTable;
 }
 
@@ -414,38 +411,33 @@ const fillTableHosFromSelect = (tableHead, tableBody, elemSelect, elemSelect1, t
   console.log(choixEtab);
   console.log(choixHos);
   for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
-     
-    if (tableau[i][value] === choixEtab.substring(1,5) && tableau [i] [value1] === choixHos) {
+
+    if (tableau[i][value] === choixEtab.substring(1, 5) && tableau[i][value1] === choixHos) {
       console.log(tableau[i][value]);
       console.log(choixEtab);
       console.log(choixHos);
       fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
       outputTable += `
-                    <td> ${tableau[i] [tabValue1]} </td>
-                    <td> ${tableau[i] [tabValue2]} </td>
-                    <td> ${tableau[i] [tabValue3]} </td>
-                    <td> ${tableau[i] [tabValue4]} </td>
-                    <td> ${tableau[i] [tabValue5]} </td><tr>
+                    <td> ${tableau[i][tabValue1]} </td>
+                    <td> ${tableau[i][tabValue2]} </td>
+                    <td> ${tableau[i][tabValue3]} </td>
+                    <td> ${tableau[i][tabValue4]} </td>
+                    <td> ${tableau[i][tabValue5]} </td><tr>
                     
                     `;
-                    
-      
-      
-      
-      
       compte++;
     }
-    
+
   }
   elemSelect.style.display = 'none';
   styleTable(tableHead, tableBody);
-  afficheInfos.innerHTML = 'Il y a ' + compte + " hospitalisations pour l'établissement " + choixEtab.substring(1,5) + '(' + choixEtab.substring(6) + ' avec la spécialité ' + choixHos;  
+  afficheInfos.innerHTML = 'Il y a ' + compte + " hospitalisations pour l'établissement " + choixEtab.substring(1, 5) + '(' + choixEtab.substring(6) + ' avec la spécialité ' + choixHos;
   tableBody.innerHTML = outputTable;
 }
 
 
 const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => {
-  let uniquesArray = []; 
+  let uniquesArray = [];
   let counting = 0;
   let found = false;
   let compte = 0;
@@ -456,48 +448,45 @@ const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => 
   for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
     if (tableau[i][value] == choixText) {
       for (y = 0; y < uniquesArray.length; y++) {
-        if ( tableau[i] [tabValue] == uniquesArray[y]) {
+        if (tableau[i][tabValue] == uniquesArray[y]) {
           found = true;
         }
       }
       counting++;
       if (counting == 1 && found == false) {
         uniquesArray.push(tableau[i][tabValue]);
-        console.log(uniquesArray [y]);
-        console.log(tableau [i] [tabValue]);
-        const selectValue = document.createElement('select'); 
-        
-      output += `
+        console.log(uniquesArray[y]);
+        console.log(tableau[i][tabValue]);
+        const selectValue = document.createElement('select');
+
+        output += `
                     <option> ${uniquesArray[y]} </option>
                                        
                     `;
-                    
-         
-            
-      compte++;
-      
+        compte++;
+
       }
-      
+
       found = false;
       counting = 0;
-      
+
     }
-    
+
   }
   selectValue.innerHTML = output;
   afficheInfos.style.color = 'teal';
-   afficheInfos.style.textShadow = '1px 1px #000';
-   afficheInfos.style.fontSize = '30px';
-  afficheInfos.innerHTML = 'Choisir la spécialité';  
- 
+  afficheInfos.style.textShadow = '1px 1px #000';
+  afficheInfos.style.fontSize = '30px';
+  afficheInfos.innerHTML = 'Choisir la spécialité';
+
 }
 
 const fillTableEtablissements = () => {
-  fillTableHeader(head,"Établissement", "Nom", "Adresse", "Code Postal", "Téléphone");
+  fillTableHeader(head, "Établissement", "Nom", "Adresse", "Code Postal", "Téléphone");
   fillTableBody(table, etablissements, "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "établissements");
   styleTable(head, table);
-  table1.style.display='none';
-  head1.style.display='none';
+  table1.style.display = 'none';
+  head1.style.display = 'none';
   hideSelects();
 }
 
@@ -505,8 +494,8 @@ const fillTablePatients = () => {
   fillTableHeader(head, "Dossier", "Nom", "Prénom", "Naissance", "Sexe");
   fillTableBody(table, patients, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patients qui sont présentement hospitalisés");
   styleTable(head, table);
-  table1.style.display='none';
-  head1.style.display='none';
+  table1.style.display = 'none';
+  head1.style.display = 'none';
   hideSelects();
 }
 
@@ -514,8 +503,8 @@ const fillTableHospitalisations = () => {
   fillTableHeader(head, "Code établissement", "No dossier patient", "Date admission", "Date sortie", "Spécialité");
   fillTableBody(table, hospitalisations, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", " hospitalisations");
   styleTable(head, table);
-  table1.style.display='none';
-  head1.style.display='none';
+  table1.style.display = 'none';
+  head1.style.display = 'none';
   hideSelects();
 }
 
@@ -529,6 +518,7 @@ const fillSelectHosParPatient = () => {
   table.style.display = 'none';
   head.style.display = 'none';
   head1.style.display = 'none';
+
 }
 
 const fillSelectHosParEtab = () => {
@@ -543,24 +533,26 @@ const fillSelectHosParEtab = () => {
 select.addEventListener('change', (e) => {
   fillTableFromSelect(head, table, select, titre, hospitalisations, "No dossier patient", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "hospitalisation(s)");
   console.log(select.selectedIndex);
-    
+
 });
-  
+
 select1.addEventListener('change', (e) => {
   fillOtherSelect(select1, select2, hospitalisations, "Code etablissement", "Specialite", "Choisir spécialité");
-  styleSelect(select2, "20%", "block", "block", head, table, "none", "none", "none", titre2, "Choisir spécialité", "30px auto 0px 350px", "10px auto 0px 350px", "0");                
+  styleSelect(select2, "20%", "block", "block", head, table, "none", "none", "none", titre2, "Choisir spécialité", "30px auto 0px 350px", "10px auto 0px 350px", "0");
   console.log(select1.choixEtab);
 });
 select2.addEventListener('change', (e) => {
-                
+
   fillTableEtabFromSelect(head, table, select1, etablissements, "Etablissement", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "hospitalisation(s)");
   fillTableHosFromSelect(head1, table1, select2, select1, hospitalisations, "Code etablissement", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "test");
   //if (tableau[i][value] == choix1 && tableau [i] [value1] == choixText) {
   console.log(select1.selectedIndex);
   console.log(select2.selectedIndex);
   hideSelects();
-  
-
 });
 
-
+navPatients.addEventListener('click', fillSelectHosParPatient);
+navEtabs.addEventListener('click', fillTableEtablissements);
+navHospitalisations.addEventListener('click', fillTableHospitalisations);
+navListePatients.addEventListener('click', fillTablePatients);
+navHosEtabs.addEventListener('click', fillSelectHosParEtab); 
