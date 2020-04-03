@@ -1,0 +1,81 @@
+<patients>
+    <patient>
+        <Dossier>1</Dossier>
+        <Nom>Léger</Nom>        
+        <Prenom>Émile</Prenom>
+        <Naissance>26 mars 1917</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>
+   <patient>
+        <Dossier>2</Dossier>
+        <Nom>Bernard</Nom>        
+        <Prenom>Marie</Prenom>
+        <Naissance>3 février 1946</Naissance>       
+        <Sexe>F</Sexe>             
+   </patient>
+    
+   <patient>
+        <Dossier>3</Dossier>
+        <Nom>Chartrand</Nom>        
+        <Prenom>Guy</Prenom>
+        <Naissance>5 avril 1959</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>
+    
+   <patient>
+        <Dossier>4</Dossier>
+        <Nom>Côté</Nom>        
+        <Prenom>André</Prenom>
+        <Naissance>2 septembre 1978</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>
+    
+   <patient>
+        <Dossier>5</Dossier>
+        <Nom>Lavoie</Nom>        
+        <Prenom>Carole</Prenom>
+        <Naissance>4 novembre 1973</Naissance>       
+        <Sexe>F</Sexe>             
+   </patient>
+    
+   <patient>
+        <Dossier>6</Dossier>
+        <Nom>Martin</Nom>        
+        <Prenom>Diane</Prenom>
+        <Naissance>2 décembre 1965</Naissance>       
+        <Sexe>F</Sexe>             
+   </patient>
+
+   <patient>
+        <Dossier>7</Dossier>
+        <Nom>Lacroix</Nom>        
+        <Prenom>Pauline</Prenom>
+        <Naissance>25 janvier 1956</Naissance>       
+        <Sexe>F</Sexe>             
+  </patient>
+      
+  <patient>
+        <Dossier>8</Dossier>
+        <Nom>St-Jean</Nom>        
+        <Prenom>Arthur</Prenom>
+        <Naissance>7 octobre 1912</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>  
+  
+   <patient>
+        <Dossier>9</Dossier>
+        <Nom>Béchard</Nom>        
+        <Prenom>Marc</Prenom>
+        <Naissance>8 août 1980</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>    
+    
+   <patient>
+        <Dossier>10</Dossier>
+        <Nom>Chartrand</Nom>        
+        <Prenom>Mario</Prenom>
+        <Naissance>23 juillet 1947</Naissance>       
+        <Sexe>M</Sexe>             
+   </patient>    
+      
+</patients>

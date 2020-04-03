@@ -1,77 +1,6 @@
 'use_strict'
 
-const patients = [
-  {
-    "Dossier": "1",
-    "Nom": "Léger",
-    "Prenom": "Émile",
-    "Naissance": "26 mars 1917",
-    "Sexe": "M"
-  },
-  {
-    "Dossier": "2",
-    "Nom": "Bernard",
-    "Prenom": "Marie",
-    "Naissance": "3 février 1946",
-    "Sexe": "F"
-  },
-  {
-    "Dossier": "3",
-    "Nom": "Chartrand",
-    "Prenom": "Guy",
-    "Naissance": "5 avril 1959",
-    "Sexe": "M"
-  },
-  {
-    "Dossier": "4",
-    "Nom": "Côté",
-    "Prenom": "André",
-    "Naissance": "2 septembre 1978",
-    "Sexe": "M"
-  },
-  {
-    "Dossier": "5",
-    "Nom": "Lavoie",
-    "Prenom": "Carole",
-    "Naissance": "4 novembre 1973",
-    "Sexe": "F"
-  },
-  {
-    "Dossier": "6",
-    "Nom": "Martin",
-    "Prenom": "Diane",
-    "Naissance": "2 décembre 1965",
-    "Sexe": "F"
-  },
-  {
-    "Dossier": "7",
-    "Nom": "Lacroix",
-    "Prenom": "Pauline",
-    "Naissance": "25 janvier 1956",
-    "Sexe": "F"
-  },
-  {
-    "Dossier": "8",
-    "Nom": "St-Jean",
-    "Prenom": "Arthur",
-    "Naissance": "7 octobre 1912",
-    "Sexe": "M"
-  },
-  {
-    "Dossier": "9",
-    "Nom": "Béchard",
-    "Prenom": "Marc",
-    "Naissance": "8 août 1980",
-    "Sexe": "M"
-  },
-  {
-    "Dossier": "10",
-    "Nom": "Chartrand",
-    "Prenom": "Mario",
-    "Naissance": "23 juillet 1947",
-    "Sexe": "M"
-  }
-];
+
 
 const etablissements = [
   {
@@ -259,6 +188,46 @@ const styleTable = (tableHead, tableBody) => {
 
 }
 
+const afficherDonnees = (tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
+  const tab = xmlFichier.getElementsByTagName(mainTag);
+  let outputTable = "";
+  let compte = 0;
+  fillTableHeader(tableHead, title1, title2, title3, title4, title5);
+  
+  for (let i = 0; i < tab.length; i++) {
+    
+   outputTable += `
+      <tr>
+      <td> ${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} </td>
+      <td> ${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue} </td>
+      <td> ${tab[i].getElementsByTagName(tag3)[0].firstChild.nodeValue} </td>
+      <td> ${tab[i].getElementsByTagName(tag4)[0].firstChild.nodeValue} </td>
+      <td> ${tab[i].getElementsByTagName(tag5)[0].firstChild.nodeValue} </td>
+      </tr>                                                                      
+      `;
+      compte++;
+  }
+  
+  tableBody.innerHTML = outputTable;
+  afficheInfos.innerHTML = 'Il y a un total de ' + compte + ' ' + message;
+  
+}
+
+const getData = (method, url, type, tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
+  
+  $.ajax({
+    type : method,
+    url : url,
+    dataType : type,
+    success : (reponse) => {
+      xmlFichier = reponse;
+      afficherDonnees(tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message);
+    },
+    fail : () => {
+      alert("Erreur lors de la requête");
+    }
+  });
+}     
 const closeTable = () => {
   table.style.display = 'none';
 }
@@ -278,20 +247,26 @@ const fillTableHeader = (tableHead, titre1, titre2, titre3, titre4, titre5) => {
 const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, message) => {
   let outputTable = "";
   let compte = 0;
-  for (let i = 0; i < tableName.length; i++) {
-    outputTable += `
-    
-                    <td> ${tableName[i][prop1]} </td>
-                    <td> ${tableName[i][prop2]} </td>
-                    <td> ${tableName[i][prop3]} </td>
-                    <td> ${tableName[i][prop4]} </td>
-                    <td> ${tableName[i][prop5]} </td> <tr>
-                    `;
+  
+      for (let i = 0; i < tableName.length; i++) {
+        outputTable += `
+        
+                        <td> ${tableName[i][prop1]} </td>
+                        <td> ${tableName[i][prop2]} </td>
+                        <td> ${tableName[i][prop3]} </td>
+                        <td> ${tableName[i][prop4]} </td>
+                        <td> ${tableName[i][prop5]} </td> <tr>
+                        `;
+    }
     compte++;
     tableBody.innerHTML = outputTable;
     afficheInfos.innerHTML = 'Il y a un total de ' + compte + ' ' + message;
-  }
-}
+  };
+  
+
+  
+    
+  
 const fillSelectHosPatient = (elem, tableau, prop, prop1, prop2) => {
 
   let output = '<option>Choisir...</option>';
@@ -491,8 +466,10 @@ const fillTableEtablissements = () => {
 }
 
 const fillTablePatients = () => {
-  fillTableHeader(head, "Dossier", "Nom", "Prénom", "Naissance", "Sexe");
-  fillTableBody(table, patients, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patients qui sont présentement hospitalisés");
+  //fillTableHeader(head, "Dossier", "Nom", "Prénom", "Naissance", "Sexe");
+  //fillTableBody(table, patients, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patients qui sont présentement hospitalisés");
+  
+  getData("GET", "http://localhost/TP2_Alexandre_Cormier_SPA_XML/donnees/patients.xml", "xml", head, table, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient", "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient(s) qui sont hospitalisé(es)");
   styleTable(head, table);
   table1.style.display = 'none';
   head1.style.display = 'none';
