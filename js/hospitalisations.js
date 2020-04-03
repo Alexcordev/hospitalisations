@@ -246,11 +246,11 @@ const hideSelects = () => {
 
 
 const styleTable = (tableHead, tableBody) => {
-  afficheInfos.style.color = 'teal';
+  afficheInfos.style.color = '#cc3300';
   afficheInfos.style.textShadow = '1px 1px #000';
   afficheInfos.style.fontSize = '30px';
   tableHead.style.display = 'table-header-group';
-  tableHead.style.backgroundColor = 'teal';
+  tableHead.style.backgroundColor = '#009999';
   tableHead.style.color = '#fff';
   tableBody.style.display = 'table-row-group';
   closeIcon.style.display = 'block';
@@ -305,7 +305,7 @@ const fillSelectHosPatient = (elem, tableau, prop, prop1, prop2) => {
   }
 
   elem.innerHTML = output;
-  afficheInfos.style.color = 'teal';
+  afficheInfos.style.color = '#cc3300';
   afficheInfos.style.textShadow = '1px 1px #000';
   afficheInfos.style.fontSize = '30px';
   afficheInfos.innerHTML = ' Sélectionner un patient pour consulter ses hospitalisations ';
@@ -323,7 +323,7 @@ const fillSelectHosEtab = (elem, tableau, prop1, prop2) => {
   }
 
   elem.innerHTML = output;
-  afficheInfos.style.color = 'teal';
+  afficheInfos.style.color = '#cc3300';
   afficheInfos.style.textShadow = '1px 1px #000';
   afficheInfos.style.fontSize = '30px';
   afficheInfos.innerHTML = "Sélectionner l'établissement";
@@ -474,7 +474,7 @@ const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => 
 
   }
   selectValue.innerHTML = output;
-  afficheInfos.style.color = 'teal';
+  afficheInfos.style.color = '#cc3300';
   afficheInfos.style.textShadow = '1px 1px #000';
   afficheInfos.style.fontSize = '30px';
   afficheInfos.innerHTML = 'Choisir la spécialité';

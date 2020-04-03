@@ -26,6 +26,11 @@ body {
   margin: 0px auto auto 80px;
   text-align: center;
   font-size: 20px;
+  
+}
+
+a:hover {
+    background-color: #cc3300;
 }
 
 /*Icônes de la NavBar*/
@@ -36,7 +41,7 @@ body {
 
 /*Navbar */
 .navbar {
-  background-color: teal;
+  background-color: #009999;
   margin: -20px auto 10px auto;
 }
 
@@ -49,25 +54,25 @@ body {
 
 /*Titres dans Header*/
 h3 {
-  color: red;
+  color: #e63900;
   font-size: 30px;
   font-weight: bold;
   margin: auto auto auto 75px;
 }
 
 #subTitle {
-  color: red;
+  color: #e63900;
   margin: auto auto auto 60px;
 }
 
 #forYou {
-  color: teal;
+  color: #009999;
   float: right;
   margin: -80px 90px auto auto;
 }
 /*Icône dans header*/
 #header-logo {
-  color: red;
+  color: #e63900;
   margin: -40px auto auto 90px;
 }
 
@@ -103,7 +108,7 @@ h3 {
 }
 
 #statut {
-  background-color: teal;
+  background-color: #009999;
   border-radius: 10%;
   width: 80px;
   color: #fff;
@@ -122,6 +127,6 @@ h3 {
 }
 
 #close {
-  color: red;
+  color: #e63900;
   display: none;
 }
