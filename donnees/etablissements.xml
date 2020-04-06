@@ -1,0 +1,44 @@
+<Etablissements>
+    <Etablissement>
+        <Num>1234</Num>
+        <Nom>Centre hospitalier Sud</Nom>
+        <Adresse>1234 boul. Sud, Montréal, Qc</Adresse>
+        <CodePostal>H2M EY6</CodePostal>
+        <Telephone>(514) 323-1234</Telephone>
+    </Etablissement>
+    <Etablissement>
+        <Num>2346</Num>
+        <Nom>Hôpital Nord</Nom>
+        <Adresse>7562, Rue du Souvenir, Nordville, Qc</Adresse>
+        <CodePostal>J4R 2Z5</CodePostal>
+        <Telephone>(450) 222-3333</Telephone>
+    </Etablissement>
+    <Etablissement>
+        <Num>3980</Num>
+        <Nom>Hôpital Centre</Nom>
+        <Adresse>4637 boul. de l'Église, Montréal, Qc</Adresse>
+        <CodePostal>H3J 4K8</CodePostal>
+        <Telephone>(514) 323-5678</Telephone>
+    </Etablissement>
+    <Etablissement>
+        <Num>4177</Num>
+        <Nom>Centre hospitalier Est</Nom>
+        <Adresse>12 rue Bernanrd, Repentigny, Qc</Adresse>
+        <CodePostal>J8R 3K5</CodePostal>
+        <Telephone>(450) 589-2345</Telephone>
+    </Etablissement>
+    <Etablissement>
+        <Num>7306</Num>
+        <Nom>Hôpital du Salut</Nom>
+        <Adresse>11, Rue de la Rédemption, St-Basile, Qc</Adresse>
+        <CodePostal>J8H 2D4</CodePostal>
+        <Telephone>(450) 345-6789</Telephone>
+    </Etablissement>
+    <Etablissement>
+        <Num>8895</Num>
+        <Nom>Derniers recours</Nom>
+        <Adresse>999 Rue St-Pierre, Longueuil, Qc</Adresse>
+        <CodePostal>J7B 3J6</CodePostal>
+        <Telephone>(450) 555-6741</Telephone>
+      </Etablissement>  
+</Etablissements>

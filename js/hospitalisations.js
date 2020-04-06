@@ -1,146 +1,5 @@
 'use_strict'
 
-
-
-const etablissements = [
-  {
-    "Etablissement": "1234",
-    "Nom": "Centre hospitalier Sud",
-    "Adresse": "1234 boul. Sud, Montréal, Qc",
-    "CodePostal": "H2M EY6",
-    "Telephone": "(514) 323-1234"
-  },
-  {
-    "Etablissement": "2346",
-    "Nom": "Hôpital Nord",
-    "Adresse": "7562, Rue du Souvenir, Nordville, Qc",
-    "CodePostal": "J4R 2Z5",
-    "Telephone": "(450) 222-3333"
-  },
-  {
-    "Etablissement": "3980",
-    "Nom": "Hôpital Centre",
-    "Adresse": "4637 boul. de l'Église, Montréal, Qc",
-    "CodePostal": "H3J 4K8",
-    "Telephone": "(514) 323-5678"
-  },
-  {
-    "Etablissement": "4177",
-    "Nom": "Centre hospitalier Est",
-    "Adresse": "12 rue Bernanrd, Repentigny, Qc",
-    "CodePostal": "J8R 3K5",
-    "Telephone": "(450) 589-2345"
-  },
-  {
-    "Etablissement": "7306",
-    "Nom": "Hôpital du Salut",
-    "Adresse": "11, Rue de la Rédemption, St-Basile, Qc",
-    "CodePostal": "J8H 2D4",
-    "Telephone": "(450) 345-6789"
-  },
-  {
-    "Etablissement": "8895",
-    "Nom": "Derniers recours",
-    "Adresse": "999 Rue St-Pierre, Longueuil, Qc",
-    "CodePostal": "J7B 3J6",
-    "Telephone": "(450) 555-6741"
-  }
-];
-
-const hospitalisations = [
-  {
-    "Code etablissement": "1234",
-    "No dossier patient": "5",
-    "Date admission": "14-août-00",
-    "Date sortie": "14-août-01",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "1234",
-    "No dossier patient": "10",
-    "Date admission": "12-déc-92",
-    "Date sortie": "12-déc.-92",
-    "Specialite": "chirurgie"
-  },
-  {
-    "Code etablissement": "2346",
-    "No dossier patient": "8",
-    "Date admission": "03-mars03",
-    "Date sortie": "05-mars-03",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "2346",
-    "No dossier patient": "1",
-    "Date admission": "11-nov-97",
-    "Date sortie": "12-nov.-97",
-    "Specialite": "orthopédie"
-  },
-  {
-    "Code etablissement": "2346",
-    "No dossier patient": "3",
-    "Date admission": "12-avr.-95",
-    "Date sortie": "30-avr.-95",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "3980",
-    "No dossier patient": "5",
-    "Date admission": "14-févr.-00",
-    "Date sortie": "14-mars-00",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "3980",
-    "No dossier patient": "5",
-    "Date admission": "01-janv.-01",
-    "Date sortie": "01-févr.-01",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "3980",
-    "No dossier patient": "9",
-    "Date admission": "03-avr.-95",
-    "Date sortie": "08-avr.-95",
-    "Specialite": "orthopédie"
-  },
-  {
-    "Code etablissement": "3980",
-    "No dossier patient": "7",
-    "Date admission": "27-nov.-99",
-    "Date sortie": "04-déc.-99",
-    "Specialite": "chirurgie"
-  },
-  {
-    "Code etablissement": "3980",
-    "No dossier patient": "10",
-    "Date admission": "28-avr.-97",
-    "Date sortie": "05-mai-97",
-    "Specialite": "chirurgie"
-  },
-  {
-    "Code etablissement": "4177",
-    "No dossier patient": "3",
-    "Date admission": "03-août-01",
-    "Date sortie": "05-déc.-01",
-    "Specialite": "médecine"
-  },
-  {
-    "Code etablissement": "4177",
-    "No dossier patient": "3",
-    "Date admission": "02-févr.-02",
-    "Date sortie": "23-févr.-02",
-    "Specialite": "orthopédie"
-  },
-  {
-    "Code etablissement": "7306",
-    "No dossier patient": "2",
-    "Date admission": "23-mai-98",
-    "Date sortie": "27-mai-98",
-    "Specialite": "orthopédie"
-  }
-];
-
 const table = document.getElementById("tableBody");
 const head = document.getElementById("tableHead");
 const table1 = document.getElementById("tableRows");
@@ -188,8 +47,9 @@ const styleTable = (tableHead, tableBody) => {
 
 }
 
-const afficherDonnees = (tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
-  const tab = xmlFichier.getElementsByTagName(mainTag);
+const afficherDonnees = (reponse, tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
+  let tab = reponse.getElementsByTagName(mainTag);
+  console.log(tab);
   let outputTable = "";
   let compte = 0;
   fillTableHeader(tableHead, title1, title2, title3, title4, title5);
@@ -213,24 +73,60 @@ const afficherDonnees = (tableHead, tableBody, title1, title2, title3, title4, t
   
 }
 
-const getData = (method, url, type, tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
+const getTableData = (method, url, type, tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message) => {
   
   $.ajax({
     type : method,
     url : url,
     dataType : type,
     success : (reponse) => {
-      xmlFichier = reponse;
-      afficherDonnees(tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message);
+       //xmlFichier = reponse;
+      afficherDonnees(reponse, tableHead, tableBody, title1, title2, title3, title4, title5, mainTag, tag1, tag2, tag3, tag4, tag5, message);
     },
     fail : () => {
       alert("Erreur lors de la requête");
     }
   });
-}     
+} 
+
+const getSelectData = (method, url, type, elem, functionName, mainTag, tag1, tag2, tag3) => {
+  
+  $.ajax({
+    type : method,
+    url : url,
+    dataType : type,
+    success : (reponse) => {
+       //xmlFichier = reponse;
+      functionName(elem, reponse, mainTag, tag1, tag2, tag3);
+    },
+    fail : () => {
+      alert("Erreur lors de la requête");
+    }
+  });
+} 
 const closeTable = () => {
   table.style.display = 'none';
 }
+
+const getSelectedIndexAndFillTable = (method, url, type, functionName, mainTag, tableHead, tableBody, elemSelect, elemTitre, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
+  
+  $.ajax({
+    type : method,
+    url : url,
+    dataType : type,
+    success : (reponse) => {
+       //xmlFichier = reponse;
+      fillTableHeader(tableHead, titre1, titre2, titre3, titre4, titre5)
+      functionName(reponse, mainTag, elemSelect, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message);
+    },
+    fail : () => {
+      alert("Erreur lors de la requête");
+    }
+  });
+} 
+/*const closeTable = () => {
+  table.style.display = 'none';*/
+
 
 const fillTableHeader = (tableHead, titre1, titre2, titre3, titre4, titre5) => {
   let outputHeader = '';
@@ -262,21 +158,18 @@ const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, 
     tableBody.innerHTML = outputTable;
     afficheInfos.innerHTML = 'Il y a un total de ' + compte + ' ' + message;
   };
-  
-
-  
-    
-  
-const fillSelectHosPatient = (elem, tableau, prop, prop1, prop2) => {
-
+   
+const fillSelectHosPatient = (elem, reponse, mainTag, tag1, tag2, tag3) => {
+  let tab = reponse.getElementsByTagName(mainTag);
+  console.log(tab);
   let output = '<option>Choisir...</option>';
-
-  for (let i = 0; tabSize = tableau.length, i < tabSize; i++) {
-
-    output += ` 
-              <option>${tableau[i][prop]} (${tableau[i][prop1]} ${tableau[i][prop2]})</option>
-              `;
-
+      
+  for (let i = 0; tabSize = tab.length, i < tabSize; i++) {
+    
+   output += `
+              <option>${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} (${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue} ${tab[i].getElementsByTagName(tag3)[0].firstChild.nodeValue})</option>
+   `;
+  
   }
 
   elem.innerHTML = output;
@@ -316,32 +209,39 @@ const styleSelect = (elem, selectWidth, selectDisplayType, titreDisplayType, tab
   elem.style.border = selectBorder;
 }
 
-const fillTableFromSelect = (tableHead, tableBody, elemSelect, elemTitre, tableau, value, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5, tabValue1, tabValue2, tabValue3, tabValue4, tabValue5, message) => {
+const fillTableFromSelect = (reponse, mainTag, elemSelect, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
+  let tab = reponse.getElementsByTagName(mainTag);
+  console.log(tab);
   let outputTable = ' ';
   let compte = 0;
   let choix = elemSelect.selectedIndex;
   let choixText = elemSelect.options[choix].text;
   console.log(choixText);
-  for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
-    if (tableau[i][value] == choix) {
-      console.log(tableau[i][value]);
-      fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
+  for (let i = 0; tableSize = tab.length, i < tableSize; i++) {
+    if (tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue == choix) {
+      console.log(choix);
+      
       outputTable += `
-                    <td> ${tableau[i][tabValue1]} </td>
-                    <td> ${tableau[i][tabValue2]} </td>
-                    <td> ${tableau[i][tabValue3]} </td>
-                    <td> ${tableau[i][tabValue4]} </td>
-                    <td> ${tableau[i][tabValue5]} </td><tr>
+                    <td> ${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag3)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag4)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag5)[0].firstChild.nodeValue} </td><tr>
                     
                     `;
       elemSelect.style.display = 'none';
       elemTitre.style.display = 'none';
 
       compte++;
-    }
-
+      
+    } 
   }
-  styleTable(tableHead, tableBody);
+  if (compte > 0) {
+    fillTableHeader(tableHead, titre1, titre2, titre3, titre4, titre5);
+    styleTable(tableHead, tableBody);
+  }
+  
+  
   tableBody.innerHTML = outputTable;
   afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;
 }
@@ -457,8 +357,7 @@ const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => 
 }
 
 const fillTableEtablissements = () => {
-  fillTableHeader(head, "Établissement", "Nom", "Adresse", "Code Postal", "Téléphone");
-  fillTableBody(table, etablissements, "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "établissements");
+  getTableData("GET", "donnees/etablissements.xml", "xml", head, table, "Établissement", "Nom", "Adresse", "Code Postal", "Téléphone", "Etablissement", "Num", "Nom", "Adresse", "CodePostal", "Telephone", "établissement(s)");
   styleTable(head, table);
   table1.style.display = 'none';
   head1.style.display = 'none';
@@ -466,10 +365,7 @@ const fillTableEtablissements = () => {
 }
 
 const fillTablePatients = () => {
-  //fillTableHeader(head, "Dossier", "Nom", "Prénom", "Naissance", "Sexe");
-  //fillTableBody(table, patients, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patients qui sont présentement hospitalisés");
-  
-  getData("GET", "http://localhost/TP2_Alexandre_Cormier_SPA_XML/donnees/patients.xml", "xml", head, table, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient", "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient(s) qui sont hospitalisé(es)");
+  getTableData("GET", "donnees/patients.xml", "xml", head, table, "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient", "Dossier", "Nom", "Prenom", "Naissance", "Sexe", "patient(s) qui sont hospitalisé(es)");
   styleTable(head, table);
   table1.style.display = 'none';
   head1.style.display = 'none';
@@ -477,8 +373,7 @@ const fillTablePatients = () => {
 }
 
 const fillTableHospitalisations = () => {
-  fillTableHeader(head, "Code établissement", "No dossier patient", "Date admission", "Date sortie", "Spécialité");
-  fillTableBody(table, hospitalisations, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", " hospitalisations");
+  getTableData("GET", "donnees/hospitalisations.xml", "xml", head, table, "Code établissement", "No dossier patient", "Date admission", "Date sortie", "Spécialité", "Hospitalisation", "Code", "NoDossierPatient", "DateAdmission", "DateSortie", "Specialite", "hospitalisation(s)");
   styleTable(head, table);
   table1.style.display = 'none';
   head1.style.display = 'none';
@@ -486,7 +381,7 @@ const fillTableHospitalisations = () => {
 }
 
 const fillSelectHosParPatient = () => {
-  fillSelectHosPatient(select, patients, "Dossier", "Prenom", "Nom");
+  getSelectData("GET", "donnees/patients.xml", "xml", select, fillSelectHosPatient, "patient", "Dossier", "Nom", "Prenom")
   styleSelect(select, "20%", "block", "block", head, table, "none", "none", "none", titre, "Choisir le patient", "auto auto 0px 350px", "5px auto auto 350px", "0");
   select1.style.display = 'none';
   select2.style.display = 'none';
@@ -508,8 +403,9 @@ const fillSelectHosParEtab = () => {
   head1.style.display = 'none';
 }
 select.addEventListener('change', (e) => {
-  fillTableFromSelect(head, table, select, titre, hospitalisations, "No dossier patient", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "hospitalisation(s)");
-  console.log(select.selectedIndex);
+  getSelectedIndexAndFillTable("GET", "donnees/hospitalisations.xml", "xml", fillTableFromSelect, "Hospitalisation", head, table, select, titre, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code", "NoDossierPatient", "DateAdmission", "DateSortie", "Specialite", "hospitalisations");
+  //fillTableFromSelect(head, table, select, titre, hospitalisations, "No dossier patient", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "hospitalisation(s)");
+  //console.log(select.selectedIndex);
 
 });
 
@@ -522,7 +418,6 @@ select2.addEventListener('change', (e) => {
 
   fillTableEtabFromSelect(head, table, select1, etablissements, "Etablissement", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "hospitalisation(s)");
   fillTableHosFromSelect(head1, table1, select2, select1, hospitalisations, "Code etablissement", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "test");
-  //if (tableau[i][value] == choix1 && tableau [i] [value1] == choixText) {
   console.log(select1.selectedIndex);
   console.log(select2.selectedIndex);
   hideSelects();

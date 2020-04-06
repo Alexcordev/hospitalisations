@@ -3,7 +3,7 @@
 }
 
 body {
-  background-image: url(/images/body_Background.jpg);
+  background-image: url(../images/body_Background.jpg);
   background-size: 100vw 100vh;
   background-repeat: no-repeat;
   display: flex;
@@ -47,7 +47,7 @@ a:hover {
 
 .jumbotron-fluid {
   height: 180px;
-  background-image: url(/images/header.jpg);
+  background-image: url(../images/header.jpg);
   background-repeat: no-repeat;
   background-size: auto auto;
 }
@@ -123,6 +123,10 @@ h3 {
 }
 
 .hide {
+  display: none;
+}
+
+.disparaitre {
   display: none;
 }
 
