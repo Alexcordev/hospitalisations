@@ -89,15 +89,17 @@ const getTableData = (method, url, type, tableHead, tableBody, title1, title2, t
   });
 } 
 
-const getSelectData = (method, url, type, elem, functionName, mainTag, tag1, tag2, tag3) => {
-  
+const getSelectData = (method, url, type, elem, elem1, functionName, mainTag, tag1, tag2, tag3) => {
+  tag3 = tag3 || ' ';
+  elem1 = elem1 || ' ';
   $.ajax({
     type : method,
     url : url,
     dataType : type,
     success : (reponse) => {
        //xmlFichier = reponse;
-      functionName(elem, reponse, mainTag, tag1, tag2, tag3);
+       
+      functionName(elem, elem1, reponse, mainTag, tag1, tag2, tag3);
     },
     fail : () => {
       alert("Erreur lors de la requête");
@@ -108,8 +110,9 @@ const closeTable = () => {
   table.style.display = 'none';
 }
 
-const getSelectedIndexAndFillTable = (method, url, type, functionName, mainTag, tableHead, tableBody, elemSelect, elemTitre, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
-  
+const getSelectedIndexAndFillTable = (method, url, type, functionName, mainTag, tableHead, tableBody, elemSelect, elemSelect1, elemTitre, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
+  elemSelect1 = elemSelect1 || ' ';
+  message = message || ' ';
   $.ajax({
     type : method,
     url : url,
@@ -117,16 +120,13 @@ const getSelectedIndexAndFillTable = (method, url, type, functionName, mainTag, 
     success : (reponse) => {
        //xmlFichier = reponse;
       fillTableHeader(tableHead, titre1, titre2, titre3, titre4, titre5)
-      functionName(reponse, mainTag, elemSelect, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message);
+      functionName(reponse, mainTag, elemSelect, elemSelect1, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message);
     },
     fail : () => {
       alert("Erreur lors de la requête");
     }
   });
 } 
-/*const closeTable = () => {
-  table.style.display = 'none';*/
-
 
 const fillTableHeader = (tableHead, titre1, titre2, titre3, titre4, titre5) => {
   let outputHeader = '';
@@ -158,8 +158,9 @@ const fillTableBody = (tableBody, tableName, prop1, prop2, prop3, prop4, prop5, 
     tableBody.innerHTML = outputTable;
     afficheInfos.innerHTML = 'Il y a un total de ' + compte + ' ' + message;
   };
-   
-const fillSelectHosPatient = (elem, reponse, mainTag, tag1, tag2, tag3) => {
+
+     
+const fillSelectHosPatient = (elem, elem1, reponse, mainTag, tag1, tag2, tag3) => {
   let tab = reponse.getElementsByTagName(mainTag);
   console.log(tab);
   let output = '<option>Choisir...</option>';
@@ -179,14 +180,17 @@ const fillSelectHosPatient = (elem, reponse, mainTag, tag1, tag2, tag3) => {
   afficheInfos.innerHTML = ' Sélectionner un patient pour consulter ses hospitalisations ';
 }
 
-const fillSelectHosEtab = (elem, tableau, prop1, prop2) => {
+const fillSelectHosEtab = (elem, elem1, reponse, mainTag, tag1, tag2, tag3) => {
 
+  let tab = reponse.getElementsByTagName(mainTag);
+  console.log(tab);
   let output = '<option>Choisir...</option>';
-
-  for (let i = 0; tabSize = tableau.length, i < tabSize; i++) {
-    output += ` 
-              <option>(${tableau[i][prop1]} ${tableau[i][prop2]})</option>
-              `;
+      
+  for (let i = 0; i < tab.length; i++) {
+    
+   output += `
+              <option>${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} ${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue}</option>
+   `;
 
   }
 
@@ -209,7 +213,7 @@ const styleSelect = (elem, selectWidth, selectDisplayType, titreDisplayType, tab
   elem.style.border = selectBorder;
 }
 
-const fillTableFromSelect = (reponse, mainTag, elemSelect, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
+const fillTableFromSelect = (reponse, mainTag, elemSelect, elemSelect1, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
   let tab = reponse.getElementsByTagName(mainTag);
   console.log(tab);
   let outputTable = ' ';
@@ -246,23 +250,24 @@ const fillTableFromSelect = (reponse, mainTag, elemSelect, elemTitre, tableHead,
   afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;
 }
 
-const fillTableEtabFromSelect = (tableHead, tableBody, elemSelect, tableau, value, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5, tabValue1, tabValue2, tabValue3, tabValue4, tabValue5, message) => {
+const fillTableEtabFromSelect = (reponse, mainTag, elemSelect, elemSelect1, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5, message) => {
+  let tab = reponse.getElementsByTagName(mainTag);
   let outputTable = ' ';
   let compte = 0;
   let choix = elemSelect.selectedIndex;
-  let choixText = elemSelect.options[choix].text.substring(1, 5);
+  let choixText = elemSelect.options[choix].text.substring(0, 4);
   console.log(choixText);
-  for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
+  for (let i = 0; tableSize = tab.length, i < tableSize; i++) {
 
-    if (tableau[i][value] == choixText) {
-      console.log(tableau[i][value]);
-      fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
+    if (tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue == choixText) {
+      console.log(tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue);
+      fillTableHeader(tableHead, titre1, titre2, titre3, titre4, titre5);
       outputTable += `
-                    <td> ${tableau[i][tabValue1]} </td>
-                    <td> ${tableau[i][tabValue2]} </td>
-                    <td> ${tableau[i][tabValue3]} </td>
-                    <td> ${tableau[i][tabValue4]} </td>
-                    <td> ${tableau[i][tabValue5]} </td><tr>
+                    <td> ${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag3)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag4)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag5)[0].firstChild.nodeValue} </td><tr>
                     
                     `;
 
@@ -270,13 +275,15 @@ const fillTableEtabFromSelect = (tableHead, tableBody, elemSelect, tableau, valu
     }
 
   }
+  elemTitre.style.display = 'none';
   elemSelect.style.display = 'none';
   styleTable(tableHead, tableBody);
   afficheInfos.innerHTML = choixText + ' a un total de ' + compte + ' ' + message;
   tableBody.innerHTML = outputTable;
 }
 
-const fillTableHosFromSelect = (tableHead, tableBody, elemSelect, elemSelect1, tableau, value, value1, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5, tabValue1, tabValue2, tabValue3, tabValue4, tabValue5, message) => {
+const fillTableHosFromSelect = (reponse, mainTag, elemSelect, elemSelect1, elemTitre, tableHead, tableBody, titre1, titre2, titre3, titre4, titre5, tag1, tag2, tag3, tag4, tag5) => {
+  let tab = reponse.getElementsByTagName(mainTag);
   let outputTable = ' ';
   let compte = 0;
   let indexEtab = elemSelect1.selectedIndex;
@@ -285,55 +292,60 @@ const fillTableHosFromSelect = (tableHead, tableBody, elemSelect, elemSelect1, t
   let choixHos = elemSelect.options[indexHos].text;
   console.log(choixEtab);
   console.log(choixHos);
-  for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
+  for (let i = 0; tableSize = tab.length, i < tableSize; i++) {
 
-    if (tableau[i][value] === choixEtab.substring(1, 5) && tableau[i][value1] === choixHos) {
-      console.log(tableau[i][value]);
+    if (tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue === choixEtab.substring(0, 4) && tab[i].getElementsByTagName(tag5)[0].firstChild.nodeValue === choixHos) {
+      console.log(tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue);
       console.log(choixEtab);
       console.log(choixHos);
-      fillTableHeader(tableHead, headerVal1, headerVal2, headerVal3, headerVal4, headerVal5);
+      fillTableHeader(tableHead, titre1, titre2, titre3, titre4, titre5);
       outputTable += `
-                    <td> ${tableau[i][tabValue1]} </td>
-                    <td> ${tableau[i][tabValue2]} </td>
-                    <td> ${tableau[i][tabValue3]} </td>
-                    <td> ${tableau[i][tabValue4]} </td>
-                    <td> ${tableau[i][tabValue5]} </td><tr>
+                    <td> ${tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag3)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag4)[0].firstChild.nodeValue} </td>
+                    <td> ${tab[i].getElementsByTagName(tag5)[0].firstChild.nodeValue} </td><tr>
                     
                     `;
       compte++;
+      
     }
-
+    
   }
-  elemSelect.style.display = 'none';
-  styleTable(tableHead, tableBody);
-  afficheInfos.innerHTML = 'Il y a ' + compte + " hospitalisations pour l'établissement " + choixEtab.substring(1, 5) + '(' + choixEtab.substring(6) + ' avec la spécialité ' + choixHos;
-  tableBody.innerHTML = outputTable;
+  elemTitre.style.display = 'none';
+    elemSelect.style.display = 'none';
+    styleTable(tableHead, tableBody);
+    afficheInfos.innerHTML = 'Il y a ' + compte + " hospitalisations pour l'établissement " + choixEtab.substring(0, 4) + '(' + choixEtab.substring(5) + ') ' + 'avec la spécialité ' + choixHos;
+    tableBody.innerHTML = outputTable;
 }
 
 
-const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => {
+const fillOtherSelect = (elem, elem1, reponse, mainTag, tag1, tag2, tag3) => {
+  let tab = reponse.getElementsByTagName(mainTag);
+  console.log(tab);
   let uniquesArray = [];
   let counting = 0;
   let found = false;
   let compte = 0;
-  let choix = selectChoix.selectedIndex;
-  let choixText = selectChoix.options[choix].text.substring(1, 5);
+  let choix = elem.selectedIndex;
+  console.log(choix);
+  let choixText = elem.options[choix].text.substring(0, 4);
   console.log(choixText);
   let output = '<option>Choisir...</option>';
-  for (let i = 0; tableSize = tableau.length, i < tableSize; i++) {
-    if (tableau[i][value] == choixText) {
+  for (let i = 0; tableSize = tab.length, i < tableSize; i++) {
+    if (tab[i].getElementsByTagName(tag1)[0].firstChild.nodeValue == choixText) {
       for (y = 0; y < uniquesArray.length; y++) {
-        if (tableau[i][tabValue] == uniquesArray[y]) {
+        if (tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue == uniquesArray[y]) {
           found = true;
         }
+        console.log(uniquesArray[y]);
       }
       counting++;
       if (counting == 1 && found == false) {
-        uniquesArray.push(tableau[i][tabValue]);
+        uniquesArray.push(tab[i].getElementsByTagName(tag2)[0].firstChild.nodeValue);
         console.log(uniquesArray[y]);
-        console.log(tableau[i][tabValue]);
-        const selectValue = document.createElement('select');
-
+        console.log(tab[i]);
+        
         output += `
                     <option> ${uniquesArray[y]} </option>
                                        
@@ -348,13 +360,14 @@ const fillOtherSelect = (selectChoix, selectValue, tableau, value, tabValue) => 
     }
 
   }
-  selectValue.innerHTML = output;
+  elem1.innerHTML = output;
   afficheInfos.style.color = '#cc3300';
   afficheInfos.style.textShadow = '1px 1px #000';
   afficheInfos.style.fontSize = '30px';
   afficheInfos.innerHTML = 'Choisir la spécialité';
 
-}
+  }
+  
 
 const fillTableEtablissements = () => {
   getTableData("GET", "donnees/etablissements.xml", "xml", head, table, "Établissement", "Nom", "Adresse", "Code Postal", "Téléphone", "Etablissement", "Num", "Nom", "Adresse", "CodePostal", "Telephone", "établissement(s)");
@@ -381,7 +394,7 @@ const fillTableHospitalisations = () => {
 }
 
 const fillSelectHosParPatient = () => {
-  getSelectData("GET", "donnees/patients.xml", "xml", select, fillSelectHosPatient, "patient", "Dossier", "Nom", "Prenom")
+  getSelectData("GET", "donnees/patients.xml", "xml", select, " ", fillSelectHosPatient, "patient", "Dossier", "Nom", "Prenom", " ");
   styleSelect(select, "20%", "block", "block", head, table, "none", "none", "none", titre, "Choisir le patient", "auto auto 0px 350px", "5px auto auto 350px", "0");
   select1.style.display = 'none';
   select2.style.display = 'none';
@@ -394,7 +407,7 @@ const fillSelectHosParPatient = () => {
 }
 
 const fillSelectHosParEtab = () => {
-  fillSelectHosEtab(select1, etablissements, "Etablissement", "Nom");
+  getSelectData("GET", "donnees/etablissements.xml", "xml", select1, " ", fillSelectHosEtab, "Etablissement", "Num", "Nom", " ");
   styleSelect(select1, "20%", "block", "block", head, table, "none", "none", "none", titre, "Choisir l'établissement", "0px auto 0px 350px", "-2px auto 30px 350px", "0");
   titre2.style.display = 'none';
   select.style.display = 'none';
@@ -403,21 +416,18 @@ const fillSelectHosParEtab = () => {
   head1.style.display = 'none';
 }
 select.addEventListener('change', (e) => {
-  getSelectedIndexAndFillTable("GET", "donnees/hospitalisations.xml", "xml", fillTableFromSelect, "Hospitalisation", head, table, select, titre, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code", "NoDossierPatient", "DateAdmission", "DateSortie", "Specialite", "hospitalisations");
-  //fillTableFromSelect(head, table, select, titre, hospitalisations, "No dossier patient", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "hospitalisation(s)");
-  //console.log(select.selectedIndex);
-
+  getSelectedIndexAndFillTable("GET", "donnees/hospitalisations.xml", "xml", fillTableFromSelect, "Hospitalisation", head, table, select," ", titre, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code", "NoDossierPatient", "DateAdmission", "DateSortie", "Specialite", "hospitalisations");
+  
 });
 
 select1.addEventListener('change', (e) => {
-  fillOtherSelect(select1, select2, hospitalisations, "Code etablissement", "Specialite", "Choisir spécialité");
+  getSelectData("GET", "donnees/hospitalisations.xml","xml", select1, select2, fillOtherSelect, "Hospitalisation", "Code", "Specialite", " ");
   styleSelect(select2, "20%", "block", "block", head, table, "none", "none", "none", titre2, "Choisir spécialité", "30px auto 0px 350px", "10px auto 0px 350px", "0");
-  console.log(select1.choixEtab);
+  
 });
 select2.addEventListener('change', (e) => {
-
-  fillTableEtabFromSelect(head, table, select1, etablissements, "Etablissement", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "Etablissement", "Nom", "Adresse", "CodePostal", "Telephone", "hospitalisation(s)");
-  fillTableHosFromSelect(head1, table1, select2, select1, hospitalisations, "Code etablissement", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "test");
+  getSelectedIndexAndFillTable("GET", "donnees/etablissements.xml", "xml", fillTableEtabFromSelect, "Etablissement", head, table, select1," " , titre, "Code", "Nom", "Adresse", "CodePostal", "Telephone", "Num", "Nom", "Adresse", "CodePostal", "Telephone", "test");
+  getSelectedIndexAndFillTable("GET", "donnees/hospitalisations.xml", "xml", fillTableHosFromSelect, "Hospitalisation", head1, table1, select2, select1, titre, "Code etablissement", "No dossier patient", "Date admission", "Date sortie", "Specialite", "Code", "NoDossierPatient", "DateAdmission", "DateSortie", "Specialite", " ");
   console.log(select1.selectedIndex);
   console.log(select2.selectedIndex);
   hideSelects();
